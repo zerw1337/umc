@@ -5,6 +5,15 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
+
+window.deferredInstallPrompt = null
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault()
+    window.deferredInstallPrompt = e
+    window.dispatchEvent(new Event('install-available'))
+})
+
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
           <App />

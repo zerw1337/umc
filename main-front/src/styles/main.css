@@ -1,3 +1,9 @@
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #0b0f14;
+}
 .main {
     --bg: #0b0f14;
     --surface: #131a22;
@@ -8,7 +14,6 @@
 
     min-height: 100vh;
     box-sizing: border-box;
-    padding: 72px 20px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,7 +63,7 @@
     padding: 0;
     width: 100%;
     max-width: 1200px;
-    display: grid;
+
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 16px;
 }

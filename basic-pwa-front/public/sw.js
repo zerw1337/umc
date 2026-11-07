@@ -46,7 +46,7 @@ self.addEventListener('fetch', (event) => {
         event.respondWith(
             fetch(request).catch(async () => {
                 return (
-                    await caches.match('/index.html')
+                    await caches.match(BASE + 'index.html')
                 ) || Response.error();
             })
         );

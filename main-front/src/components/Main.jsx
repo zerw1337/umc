@@ -1,11 +1,11 @@
-import BASEURL from '../../BASEURL.js'
+
 
 
 const apps = [
     {
         title: 'Basic PWA',
         description: 'Установка на устройство, офлайн-режим и service worker',
-        href: `${BASEURL}/basic-pwa/`,
+        href: '/basic-pwa/',
         icon: '📱',
     },
 ]

@@ -8,24 +8,24 @@ function isInstalled() {
 }
 
 function InstallButton() {
-    const [promptEvent, setPromptEvent] = useState(null)
+    const [promptEvent, setPromptEvent] = useState(window.deferredInstallPrompt)
     const [installed, setInstalled] = useState(isInstalled)
     const [hint, setHint] = useState('')
 
     useEffect(() => {
-        function onBeforeInstall(e) {
-            e.preventDefault()
-            setPromptEvent(e)
+        function onAvailable() {
+            setPromptEvent(window.deferredInstallPrompt)
         }
         function onInstalled() {
             setInstalled(true)
             setPromptEvent(null)
+            window.deferredInstallPrompt = null
         }
 
-        window.addEventListener('beforeinstallprompt', onBeforeInstall)
+        window.addEventListener('install-available', onAvailable)
         window.addEventListener('appinstalled', onInstalled)
         return () => {
-            window.removeEventListener('beforeinstallprompt', onBeforeInstall)
+            window.removeEventListener('install-available', onAvailable)
             window.removeEventListener('appinstalled', onInstalled)
         }
     }, [])

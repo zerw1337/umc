@@ -1,8 +1,9 @@
+const BASE = '/basic-pwa/';
 const CACHE_NAME = 'my-pwa-v1';
 
 const APP_SHELL = [
-    '/',
-    '/index.html',
+    BASE,
+    BASE + 'index.html',
 ];
 
 

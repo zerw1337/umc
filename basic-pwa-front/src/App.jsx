@@ -16,19 +16,19 @@ function App() {
         setIsOpenMenu(!isOpenMenu)
     }
 
-  return (
-      <>
-          <Router>
-              <div className='layout'>
-                  <SideMenu isOpenMenu={isOpenMenu} toggleOpenHeaderMenu={toggleOpenHeaderMenu}/>
-                  <div className='content'>
-                      <Header toggleOpenHeaderMenu={toggleOpenHeaderMenu} />
-                      <AnimatedRoutes />
-                  </div>
-              </div>
-          </Router>
-      </>
-  )
+    return (
+        <>
+            <Router basename={import.meta.env.BASE_URL}>
+                <div className='layout'>
+                    <SideMenu isOpenMenu={isOpenMenu} toggleOpenHeaderMenu={toggleOpenHeaderMenu}/>
+                    <div className='content'>
+                        <Header toggleOpenHeaderMenu={toggleOpenHeaderMenu}/>
+                        <AnimatedRoutes/>
+                    </div>
+                </div>
+            </Router>
+        </>
+    )
 }
 
 export default App

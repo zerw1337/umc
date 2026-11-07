@@ -43,6 +43,10 @@ services:
 
     restart: unless-stopped
 
+    volumes:
+      - ./main-front:/app
+      - /app/node_modules
+
     networks:
       - app
 

@@ -16,3 +16,17 @@ services:
 
     networks:
       - app
+
+
+  frontend:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./main-front
+
+    depends_on:
+      - backend
+
+    restart: unless-stopped
+
+    networks:
+      - app

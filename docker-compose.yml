@@ -60,6 +60,10 @@ services:
       - backend
       - frontend
 
+    volumes:
+      - ./basic-pwa-front:/app
+      - /app/node_modules
+
     restart: unless-stopped
 
     networks:

@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 
 import './index.css'
 import App from './App.jsx'
+import { logToSW } from './swLog.js'
 
 
 window.deferredInstallPrompt = null
@@ -22,12 +23,27 @@ createRoot(document.getElementById('root')).render(
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`, { scope: import.meta.env.BASE_URL })
+        const swUrl = `${import.meta.env.BASE_URL}sw.js`
+        logToSW(`Вызов register("${swUrl}")`, 'register')
+
+        navigator.serviceWorker.register(swUrl, { scope: import.meta.env.BASE_URL })
             .then((registration) => {
-                console.log('Service Worker зарегистрирован:', registration.scope);
+                logToSW(`Регистрация успешна, scope: ${registration.scope}`, 'register')
+
+                registration.addEventListener('updatefound', () => {
+                    logToSW('updatefound: найдена новая версия SW', 'register')
+                    const worker = registration.installing
+                    worker?.addEventListener('statechange', () => {
+                        logToSW(`Состояние нового SW: ${worker.state}`, 'register')
+                    })
+                })
             })
             .catch((error) => {
-                console.error('Ошибка регистрации Service Worker:', error);
-            });
-    });
+                console.error('Ошибка регистрации Service Worker:', error)
+            })
+
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            logToSW('controllerchange: сменился SW, управляющий страницей', 'register')
+        })
+    })
 }

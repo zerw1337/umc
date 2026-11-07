@@ -46,3 +46,17 @@ services:
     networks:
       - app
 
+
+  basicpwa:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./basic-pwa-front
+
+    depends_on:
+      - backend
+      - frontend
+
+    restart: unless-stopped
+
+    networks:
+      - app

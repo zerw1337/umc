@@ -1,0 +1,45 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+}
+.header--button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.header--title{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header--title p{
+    font-size: 17px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgb(0 0 0 / 0.29);
+}
+.install--button--container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+@media screen and (max-width: 1000px){
+    .header{
+        height: 60px;
+    }
+    .install--button--container{
+        width: 220px;
+    }
+}
+@media screen and (max-width: 660px){
+    .install--button--container button{
+        font-size: 11px;
+    }
+}

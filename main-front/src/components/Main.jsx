@@ -8,6 +8,12 @@ const apps = [
         href: '/basic-pwa/',
         icon: '📱',
     },
+    {
+        title: 'Music List',
+        description: 'Установка на устройство, офлайн-режим и service worker',
+        href: '/music-pwa/',
+        icon: '📱',
+    },
 ]
 
 const Main = () => {

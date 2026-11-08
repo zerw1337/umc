@@ -71,3 +71,22 @@ services:
 
     networks:
       - app
+
+
+  musicpwa:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./music-front
+
+    depends_on:
+      - backend
+      - frontend
+
+    volumes:
+      - ./music-front:/app
+      - /app/node_modules
+
+    restart: unless-stopped
+
+    networks:
+      - app

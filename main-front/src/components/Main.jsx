@@ -20,6 +20,18 @@ const apps = [
         href: '/downloads/choicer.apk',
         icon: '⬇️',
     },
+    {
+        title: 'Mobile Status Android APK',
+        description: 'APK MobileStatus',
+        href: '/downloads/mobile_status.apk',
+        icon: '⬇️',
+    },
+]
+
+const links = [
+    { title: 'GitHub', href: 'https://github.com/USER/mobile-status', icon: '🐙' },
+    { title: 'Музыка загрузка на локалке', href: '/downloads/music.mp4', icon: '🐙' },
+
 ]
 
 const Main = () => {
@@ -43,7 +55,22 @@ const Main = () => {
                     </li>
                 ))}
             </ul>
+
+            <footer className="main__links">
+                <h2 className="main__subtitle">Ссылки</h2>
+                <ul className="main__linklist">
+                    {links.map((l) => (
+                        <li key={l.href}>
+                            <a href={l.href} target="_blank" rel="noopener noreferrer">
+                                <span aria-hidden="true">{l.icon}</span> {l.title}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </footer>
+
         </main>
+
     )
 }
 

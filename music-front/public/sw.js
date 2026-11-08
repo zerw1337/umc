@@ -6,6 +6,10 @@ const CACHE = `app-shell-${BUILD}`;
 // и кэширование оболочки отключено, чтобы не мешать HMR.
 const PRECACHE = /*PRECACHE_LIST*/[];
 
+const PRECACHE_URLS = new Set(
+    PRECACHE.map((p) => new URL(p, self.registration.scope).href),
+);
+
 const DB_NAME = 'playerDB';
 const DB_VERSION = 1;
 const STORES = ['contents', 'tracks'];
@@ -64,36 +68,36 @@ async function getTrack(id) {
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    (async () => {
-      if (PRECACHE.length) {
-        const cache = await caches.open(CACHE);
-        const scope = self.registration.scope;
-        await cache.addAll(
-          PRECACHE.map((p) => new Request(new URL(p, scope).href, { cache: 'reload' })),
-        );
-      }
-      await self.skipWaiting();
-    })(),
+      (async () => {
+        if (PRECACHE.length) {
+          const cache = await caches.open(CACHE);
+          const scope = self.registration.scope;
+          await cache.addAll(
+              PRECACHE.map((p) => new Request(new URL(p, scope).href, { cache: 'reload' })),
+          );
+        }
+        await self.skipWaiting();
+      })(),
   );
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    (async () => {
-      const names = await caches.keys();
-      await Promise.all(names.filter((n) => n !== CACHE).map((n) => caches.delete(n)));
-      await self.clients.claim();
-    })(),
+      (async () => {
+        const names = await caches.keys();
+        await Promise.all(names.filter((n) => n !== CACHE).map((n) => caches.delete(n)));
+        await self.clients.claim();
+      })(),
   );
 });
 
 /* ---------- Обработчики запросов ---------- */
 
 const text = (body, status = 200) =>
-  new Response(body, {
-    status,
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-  });
+    new Response(body, {
+      status,
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    });
 
 // Запрос mp3 с заголовком track_id: скачать, положить в tracks, ответить текстом.
 async function downloadTrack(request) {
@@ -142,8 +146,8 @@ async function appShell(request) {
     if (request.mode === 'navigate') {
       const scope = self.registration.scope;
       const fallback =
-        (await cache.match(new URL('index.html', scope).href)) ||
-        (await cache.match(new URL('./', scope).href));
+          (await cache.match(new URL('index.html', scope).href)) ||
+          (await cache.match(new URL('./', scope).href));
       if (fallback) return fallback;
     }
     return Response.error();
@@ -167,5 +171,12 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (PRECACHE.length) event.respondWith(appShell(request));
+  // Кэш-first только для оболочки приложения: страницы и файлы из списка сборки.
+  // Остальные same-origin запросы (например, getcfg.php через прокси) идут в сеть.
+  if (
+      PRECACHE.length &&
+      (request.mode === 'navigate' || PRECACHE_URLS.has(url.origin + url.pathname))
+  ) {
+    event.respondWith(appShell(request));
+  }
 });

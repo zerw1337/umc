@@ -1,327 +1,173 @@
-:root {
-  --bg: #0f1117;
-  --panel: #171a23;
-  --panel-2: #1f2331;
-  --line: #2a2f40;
-  --text: #e8eaf2;
-  --muted: #8b92a8;
-  --accent: #6c8cff;
-  --accent-2: #8f6cff;
-  --ok: #3ecf8e;
-  --err: #ff6b6b;
-  color-scheme: dark;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #000;
 }
 
 button {
-  font: inherit;
-  color: inherit;
   cursor: pointer;
 }
 
 button:disabled {
-  cursor: default;
   opacity: 0.5;
+  cursor: default;
 }
 
 .app {
-  max-width: 720px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 16px 16px calc(170px + env(safe-area-inset-bottom));
+  padding: 10px 10px 150px;
 }
-
-/* ---------- шапка ---------- */
 
 .top {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.top h1 {
-  margin: 0;
-  font-size: 1.4rem;
-  font-weight: 650;
-}
-
-.top h1 i {
-  color: var(--accent);
-  margin-right: 6px;
-}
-
-.net {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  color: var(--muted);
 }
 
-.net .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--muted);
+.net.off {
+  color: red;
 }
 
-.net.on .dot {
-  background: var(--ok);
+.net.on {
+  color: green;
 }
 
-.net.off .dot {
-  background: var(--err);
+.dot {
+  display: none;
 }
-
-/* ---------- панель управления ---------- */
 
 .toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-start;
-  margin-bottom: 14px;
+  margin: 10px 0;
 }
 
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel-2);
-}
-
-.btn.primary {
-  border: 0;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
-  font-weight: 600;
-}
-
-.server {
-  flex: 1 1 240px;
-  color: var(--muted);
-  font-size: 0.85rem;
-  padding-top: 8px;
-}
-
-.server summary {
-  cursor: pointer;
+  padding: 6px 12px;
 }
 
 .server input {
   width: 100%;
-  margin-top: 8px;
-  padding: 9px 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  color: var(--text);
-  font: inherit;
+  box-sizing: border-box;
+  margin-top: 5px;
 }
-
-/* ---------- сообщения ---------- */
 
 .log {
   list-style: none;
-  margin: 0 0 16px;
-  padding: 0;
-  max-height: 132px;
+  margin: 10px 0;
+  padding: 5px;
+  max-height: 120px;
   overflow-y: auto;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--panel);
+  border: 1px solid #999;
+  font-size: 14px;
 }
 
 .log li {
-  display: grid;
-  grid-template-columns: 18px 1fr auto;
-  gap: 8px;
-  align-items: start;
-  padding: 7px 12px;
-  font-size: 0.85rem;
-  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 6px;
+  padding: 2px 0;
 }
 
-.log li:last-child {
-  border-bottom: 0;
-}
-
-.log li:first-child {
-  background: var(--panel-2);
-}
-
-.log li.success i {
-  color: var(--ok);
-}
-
-.log li.error i {
-  color: var(--err);
-}
-
-.log li.info i {
-  color: var(--accent);
-}
-
-.log li.error .msg {
-  color: #ffb3b3;
+.log .msg {
+  flex: 1;
 }
 
 .log time {
-  color: var(--muted);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+  color: #666;
 }
 
-/* ---------- список треков ---------- */
+.log li.success i {
+  color: green;
+}
+
+.log li.error i,
+.log li.error .msg {
+  color: red;
+}
 
 .tracks {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 8px;
 }
 
 .tracks li {
-  display: grid;
-  grid-template-columns: 32px 1fr auto;
-  gap: 12px;
+  display: flex;
   align-items: center;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--panel);
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
 }
 
 .tracks li.active {
-  border-color: var(--accent);
-  background: var(--panel-2);
+  background: #eee;
 }
 
 .num {
-  color: var(--muted);
+  width: 24px;
   text-align: center;
-  font-variant-numeric: tabular-nums;
 }
 
 .info {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0;
-}
-
-.title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: 550;
 }
 
 .state {
-  font-size: 0.78rem;
-  color: var(--muted);
+  font-size: 12px;
+  color: #666;
 }
 
 .state.ok {
-  color: var(--ok);
+  color: green;
 }
 
 .empty {
   text-align: center;
-  color: var(--muted);
-  padding: 32px 0;
+  color: #666;
 }
-
-/* ---------- круглые кнопки ---------- */
 
 .round {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--panel-2);
-  display: inline-grid;
-  place-items: center;
-}
-
-.round.accent {
-  border: 0;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
+  width: 36px;
+  height: 36px;
 }
 
 .round.big {
-  width: 56px;
-  height: 56px;
-  font-size: 1.15rem;
+  width: 48px;
+  height: 48px;
 }
-
-/* ---------- плеер ---------- */
 
 .player {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-  background: rgba(23, 26, 35, 0.96);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid var(--line);
-}
-
-.player > * {
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 10px;
+  background: #f2f2f2;
+  border-top: 1px solid #999;
 }
 
 .now {
   text-align: center;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-bottom: 6px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .seek {
-  display: grid;
-  grid-template-columns: 42px 1fr 42px;
-  gap: 8px;
+  display: flex;
   align-items: center;
-  font-size: 0.8rem;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.seek span:last-child {
-  text-align: right;
+  gap: 8px;
+  font-size: 14px;
 }
 
 .seek input {
-  width: 100%;
-  accent-color: var(--accent);
+  flex: 1;
 }
 
 .controls {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 18px;
+  gap: 10px;
   margin-top: 8px;
 }

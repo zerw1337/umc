@@ -22,15 +22,17 @@ const apps = [
     },
     {
         title: 'Mobile Status Android APK',
-        description: 'APK MobileStatus',
+        description: 'Инфв о устройстве, батарея, гео',
         href: '/downloads/mobile_status.apk',
         icon: '⬇️',
     },
 ]
 
 const links = [
-    { title: 'GitHub', href: 'https://github.com/USER/mobile-status', icon: '🐙' },
+    { title: 'GitHub', href: 'https://github.com/zerw1337/umc', icon: '🐙' },
     { title: 'Музыка загрузка на локалке', href: '/downloads/music.mp4', icon: '🐙' },
+    { title: 'Проект Choicer', href: '/downloads/Choicer.zip', icon: '🐙' },
+    { title: 'Проект MobileStatus', href: '/downloads/MobileStatus.zip', icon: '🐙' },
 
 ]
 

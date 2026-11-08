@@ -2,9 +2,7 @@ networks:
   app:
     driver: bridge
 
-
 services:
-
   nginx:
     image: nginx:alpine
     container_name: umc-nginx
@@ -15,80 +13,32 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/certs:/etc/nginx/certs:ro
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./downloads:/var/www/downloads:ro
     depends_on:
-      - backend
       - frontend
       - basicpwa
+      - musicpwa
     networks:
       - app
-
-  backend:
-    build:
-      dockerfile: ./Dockerfile
-      context: ./backend
-
-    restart: unless-stopped
-
-    ports:
-      - "8000:8000"
-
-    networks:
-      - app
-
 
   frontend:
     build:
-      dockerfile: ./Dockerfile
       context: ./main-front
-
     depends_on:
-      - backend
-
     restart: unless-stopped
-
-    volumes:
-      - ./main-front:/app
-      - /app/node_modules
-
     networks:
       - app
-
 
   basicpwa:
     build:
-      dockerfile: ./Dockerfile
       context: ./basic-pwa-front
-
-    depends_on:
-      - backend
-      - frontend
-
-    volumes:
-      - ./basic-pwa-front:/app
-      - /app/node_modules
-
     restart: unless-stopped
-
     networks:
       - app
 
-
   musicpwa:
     build:
-      dockerfile: ./Dockerfile
       context: ./music-front
-
-    depends_on:
-      - backend
-      - frontend
-
-    volumes:
-      - ./music-front:/app
-      - /app/node_modules
-
     restart: unless-stopped
-
     networks:
       - app

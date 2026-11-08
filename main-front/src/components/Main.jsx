@@ -4,15 +4,21 @@
 const apps = [
     {
         title: 'Basic PWA',
-        description: 'Установка на устройство, офлайн-режим и service worker',
+        description: 'Basic PWA lab',
         href: '/basic-pwa/',
         icon: '📱',
     },
     {
         title: 'Music List',
-        description: 'Установка на устройство, офлайн-режим и service worker',
+        description: 'Музыкальный проигрыватель',
         href: '/music-pwa/',
-        icon: '📱',
+        icon: '🎵',
+    },
+    {
+        title: 'Cordova Choicer Android APK',
+        description: 'APK Choicer [OnsenUI]',
+        href: '/downloads/choicer.apk',
+        icon: '⬇️',
     },
 ]
 
